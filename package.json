@@ -7,14 +7,14 @@
     "dev:webpack": "node --max-old-space-size=4096 node_modules/next/dist/bin/next dev --webpack",
     "dev:clean": "npm run clean && npm run dev",
     "clean": "node -e \"const fs=require('fs');for(const d of ['.next','.open-next','.wrangler/state']){try{fs.rmSync(d,{recursive:true,force:true});console.log('rm',d)}catch{}}\"",
-    "build": "next build",
+    "build": "opennextjs-cloudflare build",
+    "build:next": "next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "cf:build": "opennextjs-cloudflare build",
-    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf:upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload"
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
