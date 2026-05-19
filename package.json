@@ -3,17 +3,38 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node --max-old-space-size=4096 node_modules/next/dist/bin/next dev",
+    "dev:webpack": "node --max-old-space-size=4096 node_modules/next/dist/bin/next dev --webpack",
+    "dev:clean": "npm run clean && npm run dev",
+    "clean": "node -e \"const fs=require('fs');for(const d of ['.next','.open-next','.wrangler/state']){try{fs.rmSync(d,{recursive:true,force:true});console.log('rm',d)}catch{}}\"",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf:upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@opennextjs/cloudflare": "^1.19.10",
+    "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.23",
+    "lucide-react": "^1.14.0",
     "next": "16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-intersection-observer": "^10.0.3",
+    "schema-dts": "^2.0.0",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260519.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -21,6 +42,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.92.0"
   }
 }

@@ -1,0 +1,58 @@
+/**
+ * Configuration Cloudflare Workers — Le Penn'ti du Coiffeur
+ * Pattern agence : site vitrine sans DB / sans KV / sans R2.
+ * Ajouter D1 (freelance-shared), KV ou R2 ici si besoin, et activer
+ * `initOpenNextCloudflareForDev()` dans next.config.ts en conséquence.
+ *
+ * Doc : https://opennext.js.org/cloudflare
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "le-penti",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-05-05",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+
+  // Assets bundled by OpenNext (statique + _next/static).
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+
+  // Observabilité (logs + traces) activée par défaut sur tous les projets.
+  "observability": {
+    "enabled": true
+  },
+
+  // Variables publiques injectées au runtime du Worker.
+  // SITE_ID = identifiant unique du projet (utilisé si une D1 mutualisée est ajoutée plus tard).
+  "vars": {
+    "SITE_ID": "lepenti",
+    "NEXT_PUBLIC_SITE_URL": "https://lepenntiducoiffeur.fr"
+  }
+
+  // --- Bindings optionnels (à activer au besoin) -----------------------------
+  //
+  // D1 mutualisée (toutes les tables doivent être préfixées par SITE_ID) :
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "freelance-shared",
+  //     "database_id": "<remplir>",
+  //     "migrations_dir": "drizzle/migrations"
+  //   }
+  // ],
+  //
+  // KV (cache court / config runtime) :
+  // "kv_namespaces": [
+  //   { "binding": "KV", "id": "<remplir>" }
+  // ],
+  //
+  // R2 (médias / uploads) :
+  // "r2_buckets": [
+  //   { "binding": "MEDIA_BUCKET", "bucket_name": "le-penti-media" }
+  // ],
+  //
+  // Secrets (à pousser via `wrangler secret put`) :
+  //   NEXT_PUBLIC_PLANITY_KEY  (clé widget Planity — peut aussi rester en vars publiques)
+}
